@@ -1,0 +1,14 @@
+#map {
+    height: 600px;  
+    width: 100%; 
+    border: 1px solid;
+    border-radius: 5px
+}
+
+.navbar-fixed-top {
+    background: #153b5f;
+}
+
+.navbar-header a {
+    color: #fff;
+}
