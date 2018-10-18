@@ -1,0 +1,53 @@
+<div class="col-md-4">
+  <h2>Sign up</h2>
+<form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
+    <div class="form-group" [ngClass]="{ 'has-error':  f.email.errors && ( submitted || f.email.touched || f.email.dirty )}">
+        <input 
+          type="text"
+          formControlName="email"
+          class="form-control"  
+          placeholder="Enter your Email here"
+          pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"
+        />
+        <div *ngIf="f.email.errors && ( submitted || f.email.touched || f.email.dirty )" class="invalid-feedback">
+            <div *ngIf="f.email.errors.required">Email is required</div>
+            <div *ngIf="f.email.value !== '' && f.email.invalid">
+              Email is invalid
+            </div>
+        </div>
+    </div>
+    <div class="form-group " [ngClass]="{ 'has-error': f.username.errors && ( submitted|| f.username.touched || f.username.dirty ) }">
+        <input
+          type="text" 
+          formControlName="username" 
+          class="form-control" 
+          placeholder="Enter your Username here"
+        />
+        <div *ngIf="f.username.errors && ( submitted|| f.username.touched || f.username.dirty )" class="invalid-feedback">
+            <div *ngIf="f.username.errors.required">Username is required</div>
+            <div *ngIf="f.username.value !== '' && f.username.invalid">
+                Username is invalid, must contain only alphabets and numbers
+            </div>
+        </div>
+    </div>
+    <div class="form-group" [ngClass]="{ 'has-error': f.password.errors && ( submitted|| f.password.touched || f.password.dirty ) }">
+        <input
+          type="password"
+          formControlName="password" 
+          placeholder="Enter your Password here"
+          class="form-control" [ngClass]="{ 'has-error': submitted && f.password.errors }" />
+        <div *ngIf="f.password.errors && ( submitted|| f.password.touched || f.password.dirty )" class="invalid-feedback">
+            <div *ngIf="f.password.errors.required">Password is required</div>
+            <div *ngIf="f.password.value !== '' && f.password.errors.minlength">
+              Password must be at least 6 characters
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <button [disabled]="loading" class="btn btn-primary">
+            Register
+            <i *ngIf="loading" class="fa fa-spinner fa-spin"></i>
+        </button>
+    </div>
+</form>
+</div>
