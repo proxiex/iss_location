@@ -13,7 +13,7 @@
   "private": true,
   "dependencies": {
     "@agm/core": "^1.0.0-beta.5",
-    "@angular/animations": "^6.1.0",
+    "@angular/animations": "^6.1.10",
     "@angular/cli": "~6.2.5",
     "@angular/common": "^6.1.0",
     "@angular/compiler": "^6.1.0",
@@ -27,6 +27,7 @@
     "@types/googlemaps": "^3.30.15",
     "core-js": "^2.5.4",
     "express": "^4.16.4",
+    "ngx-toastr": "^9.1.0",
     "rxjs": "~6.2.0",
     "typescript": "~2.9.2",
     "zone.js": "~0.8.26"
