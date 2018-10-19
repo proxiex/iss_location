@@ -1,0 +1,13 @@
+.my-head {
+    padding: 0 1%;
+    background: #122c46;
+    height: 70px;
+}
+
+.navbar-brand {
+    color: white;
+}
+
+.navbar-brand img {
+    display: inline-block;
+}

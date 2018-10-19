@@ -33,4 +33,17 @@ export class UserService {
     )
   }
 
+  login(userData: Object) {
+    return this.http.post(`${this.apiBaseUrl}/auth/login`, userData).pipe(
+      map((user) => {
+        this.token = user.json().token;
+        const msg = user.json().message;
+          if (this.token) {
+              localStorage.setItem('currentUser', JSON.stringify({ token: this.token }));
+              return msg
+          }
+      })
+    )
+  }
+
 }
