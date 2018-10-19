@@ -10,12 +10,16 @@ import { UserService } from './services/user.service';
 import { AppComponent } from './app.component';
 import { MapComponent } from './map/map.component';
 import { SignupComponent } from './signup/signup.component';
+import { SigninComponent } from './signin/signin.component';
+import { HeaderComponent } from './header/header.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     MapComponent,
-    SignupComponent
+    SignupComponent,
+    SigninComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,
