@@ -1,5 +1,6 @@
 /// <reference types="@types/googlemaps" />
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { MapService } from '../services/map.service';
 
 @Component({
   selector: 'app-map',
@@ -12,17 +13,31 @@ export class MapComponent implements OnInit {
 
   @ViewChild('gmap') gmapElement: any;
   map: google.maps.Map;
-  lat: number = 0;
-  lng: number = 0 ;
+  lat: number;
+  lng: number;
   marker: google.maps.Marker;
   myLatlng: google.maps.LatLng
 
-  constructor() { }
+  constructor(
+    private mapService: MapService
+  ) { }
+
+  issLocation() {
+    this.mapService.ISSCurrentLocatoin()
+      .subscribe((data) => {
+        const {iss_position: { latitude,longitude } } = data;
+          this.lat = latitude;
+          this.lng = longitude;
+      })
+  }
+
 
   ngOnInit() {
   }
 
   ngAfterContentInit(){
+    this.issLocation();
+
     var mapOptions = {
       center: new google.maps.LatLng(this.lat, this.lng),
       zoom: 2,
@@ -37,14 +52,14 @@ export class MapComponent implements OnInit {
     });
 
     let myVar = setInterval(()=> {
-      this.lat -= 2.4;
-      this.lng += 4.24;
+      
+        this.issLocation();
   
       let x = new google.maps.LatLng(this.lat, this.lng)
       this.map.panTo(x);
       this.marker.setPosition(x);
 
-  }, 2000)
+  }, 5000)
 
   }
 

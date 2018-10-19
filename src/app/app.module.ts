@@ -7,6 +7,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
  
 
 import { UserService } from './services/user.service';
+import { MapService } from './services/map.service';
+
+
 import { AppComponent } from './app.component';
 import { MapComponent } from './map/map.component';
 import { SignupComponent } from './signup/signup.component';
@@ -30,7 +33,8 @@ import { HeaderComponent } from './header/header.component';
     HttpModule
   ],
   providers: [
-    UserService
+    UserService,
+    MapService
   ],
   bootstrap: [AppComponent]
 })
