@@ -11,3 +11,7 @@
 .navbar-brand img {
     display: inline-block;
 }
+
+#navbar {
+    background: #122c46;
+}

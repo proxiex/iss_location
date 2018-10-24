@@ -13,7 +13,7 @@
       </a>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
-      <app-signin></app-signin>
+      <app-signin (loggedIn)="userIsLoggedIn($event)" *ngIf="!loggedin" ></app-signin>
     </div><!--/.navbar-collapse -->
   </div>
 </nav>
