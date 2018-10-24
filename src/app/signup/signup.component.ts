@@ -78,6 +78,12 @@ export class SignupComponent implements OnInit {
           .subscribe(() => {
             this.toastrService.success('Your registration was succesfull');
             this.loading = false;
+            this.signupForm.reset({
+              username: '',
+              email: '',
+              password: ''
+            });
+            this.submitted = false;
           }, (err) => {
             this.loading = false;
             const errData = JSON.parse(err._body)

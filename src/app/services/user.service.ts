@@ -7,11 +7,14 @@ import { environment } from '../../environments/environment.prod';
 @Injectable()
 export class UserService {
   public token: string;
+  private isLoggedin: boolean;
   private apiBaseUrl = environment.apiBaseUrl;
 
   constructor(
     protected http: Http,
-  ) {}
+  ) {
+    this.isLoggedin = false;
+  }
 
   /**
    * Creates a new user.
@@ -33,12 +36,14 @@ export class UserService {
     )
   }
 
+
   login(userData: Object) {
     return this.http.post(`${this.apiBaseUrl}/auth/login`, userData).pipe(
       map((user) => {
         this.token = user.json().token;
         const msg = user.json().message;
           if (this.token) {
+              this.isLoggedin = true;
               localStorage.setItem('currentUser', JSON.stringify({ token: this.token }));
               return msg
           }
@@ -46,4 +51,34 @@ export class UserService {
     )
   }
 
+
+
+  isLoggedIn() {
+    return this.isLoggedin;
+  }
 }
+
+
+/** 
+ * 
+ * 
+ * 
+  getToken() {
+     this.token = JSON.parse(localStorage.getItem('currentUser')).token
+     return this.token;
+  }
+
+  createAuthorizationHeader(headers: Headers, token: string) {
+    headers.append('Authorization', token)
+  }
+
+ let headers = new Headers();
+    const token = this.getToken();
+    this.createAuthorizationHeader(headers, token);
+  
+ { 
+        headers: headers
+      }
+  
+      
+*/

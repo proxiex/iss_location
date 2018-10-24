@@ -8,9 +8,14 @@ export class MapService {
   public token: string;
   private apiBaseUrl = environment.apiBaseUrl;
 
+  
+  
+
   constructor(
     protected http: Http,
-  ) {}
+  ) {
+
+  }
 
   /**
    * Creates a new user.

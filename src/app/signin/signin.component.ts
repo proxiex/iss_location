@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter, Input, Output } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { UserService } from '../services/user.service';
 import { ToastrService } from 'ngx-toastr';
@@ -11,6 +11,7 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class SigninComponent implements OnInit {
   signInForm: FormGroup;
+  @Output() loggedIn = new EventEmitter<boolean>();
   loading = false;
   submitted = false;
 
@@ -50,8 +51,13 @@ export class SigninComponent implements OnInit {
     .subscribe((response) => {
       console.log(response)
       this.toastrService.success(response);
+      this.loggedIn.emit(true);
       this.loading = false;
-      this.signInForm.reset();
+      this.signInForm.reset({
+        email: '',
+        password: ''
+      });
+      this.submitted = false;
     }, (err) => {
       this.loading = false;
         const errData = JSON.parse(err._body)

@@ -1,11 +1,35 @@
 <!--The content below is only a placeholder and can be replaced.-->
 <div class="container" style="text-align:center; padding-top: 80px;">
     <div class="row">
-        <app-header></app-header>
+        <app-header (onLoggedin)="userIsLoggedIn($event)"></app-header>
     </div>
     <div class="row">
         <app-map></app-map>
-        <app-signup></app-signup>
+        <div class="col-md-4">
+            <div class="row" style="text-align: justify;">
+                <h3  style="text-align: center;"> Welcome to ISS Location</h3>
+                <p>
+                    The International Space Station (ISS) is moving at close to 28,000
+                        km/h so its location changes really fast! The Map to your 
+                        left show's the current possition of the ISS over the earth. 
+                        The Map is updated evrey 5 seconds.
+                </p>
+                <hr>
+                <p *ngIf="!loggedin">
+                    Signing up will give you access to the following.
+                        <li>To find upcoming ISS passes for a particular location</li>
+                        <li>To be able to view ur ISS location search History</li>
+                        <li>To know how many poeple are currently in space</li>
+                </p>
+            </div>
+            <div class="row">
+                <app-signup *ngIf="!loggedin"></app-signup>
+            </div>
+        </div>
     </div>
+    <hr>
+    <footer>
+        <p>&copy; 2018 Syne, Inc.</p>
+    </footer>
 </div>
 
