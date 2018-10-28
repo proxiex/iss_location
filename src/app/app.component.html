@@ -1,12 +1,21 @@
 <!--The content below is only a placeholder and can be replaced.-->
 <div class="container" style="text-align:center; padding-top: 80px;">
     <div class="row">
-        <app-header (onLoggedin)="userIsLoggedIn($event)"></app-header>
+        <app-header 
+        (onLoggedin)="userIsLoggedIn($event)"
+        (issCurrentOut)="issCurrent($event)"
+        (issPassOut)="issPass($event)"
+        (issHistoryOut)="issHistory($event)"
+        ></app-header>
     </div>
     <div class="row">
-        <app-map></app-map>
+        <app-map 
+            [loggedin]='loggedin' 
+            (markerDraged)='markerDraged($event)' 
+            (currentLocation)='currentLocation($event)'
+        ></app-map>
         <div class="col-md-4">
-            <div class="row" style="text-align: justify;">
+            <div *ngIf="showIssCurrent" class="row" style="text-align: justify;">
                 <h3  style="text-align: center;"> Welcome to ISS Location</h3>
                 <p>
                     The International Space Station (ISS) is moving at close to 28,000
@@ -15,6 +24,18 @@
                         The Map is updated evrey 5 seconds.
                 </p>
                 <hr>
+                <div *ngIf="loggedin">
+                    <p>
+                        The ISS is currently over {{latC}} ° N, {{lngC}} ° E
+                    </p>
+                    <p>
+                        Number of People in Space {{noPeopleInSpace}}
+                    </p>
+                    <ul *ngFor="let person of peopleInSpace">
+                        <li><b>Name:</b> {{person.name}}<br> <b>Craft: </b> {{person.craft}}</li>
+                    </ul>
+                </div>
+                
                 <p *ngIf="!loggedin">
                     Signing up will give you access to the following.
                         <li>To find upcoming ISS passes for a particular location</li>
@@ -24,6 +45,7 @@
             </div>
             <div class="row">
                 <app-signup *ngIf="!loggedin"></app-signup>
+                <app-find-pass [lat]='lat' [lng]='lng'  *ngIf="showIssPass"></app-find-pass>
             </div>
         </div>
     </div>

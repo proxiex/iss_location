@@ -15,3 +15,23 @@
 #navbar {
     background: #122c46;
 }
+
+nav {
+    background: #122c46;
+}
+
+ul a {
+    color: #fff;
+    cursor: pointer;
+}
+
+ul a:focus {
+    color: #fff;
+    cursor: pointer;
+}
+
+ul a:hover {
+    background: none;
+    color: #fff;
+    cursor: pointer;
+}

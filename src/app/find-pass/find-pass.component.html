@@ -1,0 +1,16 @@
+<h3>International Space Station Pass Times</h3>
+<p>
+    Find the list of upcoming ISS passes for a particular location. 
+    The international space station (ISS) is an orbital outpost circling 
+    high above out heads. Sometimes it’s overhead, but when? It depends on 
+    your location. Given a location on Earth (latitude, longitude) 
+    you will get the a list the next 5 times the ISS will be overhead.
+</p>
+<form [formGroup]="issPassForm">
+  <div class="form-group">
+    <input type="number" formControlName='latitiude' class="form-control" value="f.latitiude.value" placeholder="Latitiude">
+  </div>
+  <div class="form-group">
+    <input type="number" formControlName='longitude' class="form-control" value="f.longitude.value" placeholder="Longitude">
+  </div>
+</form>

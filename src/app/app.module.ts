@@ -15,6 +15,7 @@ import { MapComponent } from './map/map.component';
 import { SignupComponent } from './signup/signup.component';
 import { SigninComponent } from './signin/signin.component';
 import { HeaderComponent } from './header/header.component';
+import { FindPassComponent } from './find-pass/find-pass.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { HeaderComponent } from './header/header.component';
     MapComponent,
     SignupComponent,
     SigninComponent,
-    HeaderComponent
+    HeaderComponent,
+    FindPassComponent
   ],
   imports: [
     BrowserModule,

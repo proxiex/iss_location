@@ -27,7 +27,6 @@ export class MapService {
   ISSCurrentLocatoin() {
     return this.http.get(`https://iss-location-api.herokuapp.com/api/v1/iss/current-location`).pipe(
         map((issLoc) => {
-          console.log()
           const lnglat = issLoc.json();
           return lnglat;
         })

@@ -51,10 +51,22 @@ export class UserService {
     )
   }
 
-
-
   isLoggedIn() {
     return this.isLoggedin;
+  }
+
+  logout(): void {
+    this.token = null;
+    localStorage.removeItem('currentUser');
+  }
+
+  getPeopleInSpace() {
+    return this.http.get(`${this.apiBaseUrl}/iss/people`).pipe(
+      map((data) => {
+        const people = data.json().data;
+        return people;
+      })
+    )
   }
 }
 
