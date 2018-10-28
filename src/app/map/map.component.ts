@@ -1,5 +1,5 @@
 /// <reference types="@types/googlemaps" />
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, EventEmitter, Output, Input } from '@angular/core';
 import { MapService } from '../services/map.service';
 
 @Component({
@@ -13,11 +13,18 @@ export class MapComponent implements OnInit {
 
   @ViewChild('gmap') gmapElement: any;
   @ViewChild('pacInput') pacInputElm: any;
+  @Output() searchLocation = new EventEmitter<{lat: number, lng: number}>();
+  @Output() markerDraged = new EventEmitter<{lat: number, lng: number}>();
+  @Output() currentLocation = new EventEmitter<{lat: number, lng: number}>();
+  @Input() loggedin;
+
   map: google.maps.Map;
   lat: number;
   lng: number;
   marker: google.maps.Marker;
   myLatlng: google.maps.LatLng
+  timeOut: any;
+
 
   constructor(
     private mapService: MapService
@@ -32,13 +39,32 @@ export class MapComponent implements OnInit {
       })
   }
 
+  recenterMap() {
+    let latLng = new google.maps.LatLng(this.lat, this.lng)
+    this.map.panTo(latLng);
+    this.marker.setPosition(latLng);
+  }
 
   ngOnInit() {
   }
 
+  setResetInterval(bool: boolean) {
+    if (bool) {
+      this.timeOut = setInterval(()=> {
+            this.issLocation();
+            this.recenterMap();
+            this.currentLocation.emit({
+              lat: this.lat,
+              lng: this.lng
+            })
+      }, 5000);
+  } else {
+      clearInterval(this.timeOut);
+    }
+  }
+
   ngAfterContentInit(){
     this.issLocation();
-
     const mapOptions = {
       center: new google.maps.LatLng(this.lat, this.lng),
       zoom: 2,
@@ -58,7 +84,6 @@ export class MapComponent implements OnInit {
     searchBox.addListener('places_changed', function() {
       var places = searchBox.getPlaces();
       console.log('Plaecss >>>', places.length, places)
-
       if (places.length == 0) {
         return;
       }
@@ -67,27 +92,25 @@ export class MapComponent implements OnInit {
       places.forEach(function(place) {
       const lat = place.geometry.location.lat()
       const lng = place.geometry.location.lng()
+      this.searchLocation.emit({lat, lng})
       console.log('Locatoin for Jos is ->>>>>', lat, lng);
       });
     });
-
+    
     this.marker = new google.maps.Marker({
       position: this.myLatlng,
       map: this.map,
       icon: 'assets/img/ISSIcon.png',
-      draggable: true
     });
 
-    let myVar = setInterval(()=> {
-      
-        this.issLocation();
-  
-      let x = new google.maps.LatLng(this.lat, this.lng)
-      this.map.panTo(x);
-      this.marker.setPosition(x);
+    // this.marker.addListener('dragend', () => {
+    //   const lat = this.marker.getPosition().lat()
+    //   const lng = this.marker.getPosition().lng()
+    //   this.markerDraged.emit({lat, lng})
+    //   this.setResetInterval(false);
+        
+    // })
 
-  }, 5000)
-
+    this.setResetInterval(true)
   }
-
 }

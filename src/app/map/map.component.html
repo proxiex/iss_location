@@ -1,4 +1,6 @@
 <div class="col-md-8">
-    <input #pacInput id="pac-input" class="controls" type="text" placeholder="Search Box">
+    <input [ngClass]="(!loggedin)? 'hideInput': 'left'" style="left: 168px;" #pacInput id="pac-input" class="controls" type="text" placeholder="Search Box">
     <div #gmap id="map"></div>
 </div>
+
+<!-- *ngIf="loggedin" -->

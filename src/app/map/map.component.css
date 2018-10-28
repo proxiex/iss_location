@@ -84,3 +84,11 @@
   #target {
     width: 345px;
   }
+
+  .hideInput {
+    display: none;
+  }
+
+  .left { 
+    left: 168px !important;
+  }
