@@ -10,11 +10,11 @@
     </div>
     <div class="row">
         <app-map 
-            [loggedin]='loggedin' 
-            (markerDraged)='markerDraged($event)' 
+            [loggedin]='loggedin'
             (currentLocation)='currentLocation($event)'
             [searchLat]='lat'
             [searchLng]='lng'
+            [flip]='flip'
             [startTimer]='startTimer'
         ></app-map>
         <div class="col-md-4">
@@ -49,6 +49,7 @@
             <div class="row">
                 <app-signup *ngIf="!loggedin"></app-signup>
                 <app-find-pass (searchLocation)="searchLocation($event)"  *ngIf="showIssPass && loggedin"></app-find-pass>
+                <app-view-iss-pass  *ngIf="showIssViewPass && loggedin"></app-view-iss-pass>
             </div>
         </div>
     </div>

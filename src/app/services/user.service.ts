@@ -75,6 +75,21 @@ export class UserService {
     )
   }
 
+  viewIssHistory() {
+    let headers = new Headers();
+    const token = this.getToken();
+    this.createAuthorizationHeader(headers, token);
+    return this.http.get(`${this.apiBaseUrl}/iss/location`,
+    { 
+      headers: headers
+    }
+    ).pipe(
+      map(data => {
+        return data.json();
+      })
+    )
+  }
+
   isLoggedIn() {
     return this.isLoggedin;
   }

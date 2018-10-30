@@ -25,6 +25,7 @@ export class MapComponent implements OnInit {
   @Input() searchLat;
   @Input() searchLng;
   @Input() startTimer;
+  @Input() flip;
 
 
   map: google.maps.Map;
@@ -95,10 +96,9 @@ export class MapComponent implements OnInit {
       this.lng = this.searchLng;
       this.setResetInterval(false)
       this.recenterMap()
-    }
-
-    if (this.startTimer) {
-      this.setResetInterval(true);
+      setTimeout(() => {
+        this.setResetInterval(true)
+      }, 5000)
     }
   }
 }
