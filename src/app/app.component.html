@@ -13,9 +13,12 @@
             [loggedin]='loggedin' 
             (markerDraged)='markerDraged($event)' 
             (currentLocation)='currentLocation($event)'
+            [searchLat]='lat'
+            [searchLng]='lng'
+            [startTimer]='startTimer'
         ></app-map>
         <div class="col-md-4">
-            <div *ngIf="showIssCurrent" class="row" style="text-align: justify;">
+            <div *ngIf="showIssCurrent || !loggedin" class="row" style="text-align: justify;">
                 <h3  style="text-align: center;"> Welcome to ISS Location</h3>
                 <p>
                     The International Space Station (ISS) is moving at close to 28,000
@@ -45,7 +48,7 @@
             </div>
             <div class="row">
                 <app-signup *ngIf="!loggedin"></app-signup>
-                <app-find-pass [lat]='lat' [lng]='lng'  *ngIf="showIssPass"></app-find-pass>
+                <app-find-pass (searchLocation)="searchLocation($event)"  *ngIf="showIssPass && loggedin"></app-find-pass>
             </div>
         </div>
     </div>

@@ -4,7 +4,7 @@ import { catchError, map } from 'rxjs/operators';
 import { environment } from '../../environments/environment.prod';
 
 @Injectable()
-export class MapService {
+export class IssService {
   public token: string;
   private apiBaseUrl = `${environment.apiBaseUrl}/iss`;
 
@@ -24,12 +24,20 @@ export class MapService {
    *
    * @return {Observable} user
    */
-  ISSCurrentLocatoin() {
-    return this.http.get(`${this.apiBaseUrl}/current-location`).pipe(
+  getIssPassLocation(payload) {
+    return this.http.post(`${this.apiBaseUrl}/pass-location`, payload).pipe(
         map((issLoc) => {
-          const lnglat = issLoc.json();
-          return lnglat;
+          return issLoc.json().data;
         })
+    )
+  }
+
+  getPeopleInSpace() {
+    return this.http.get(`${this.apiBaseUrl}/people`).pipe(
+      map((data) => {
+        const people = data.json().data;
+        return people;
+      })
     )
   }
 
