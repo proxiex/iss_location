@@ -16,6 +16,15 @@ export class UserService {
     this.isLoggedin = false;
   }
 
+  getToken() {
+    this.token = JSON.parse(localStorage.getItem('currentUser')).token
+    return this.token;
+ }
+
+ createAuthorizationHeader(headers: Headers, token: string) {
+   headers.append('Authorization', token)
+ }
+
   /**
    * Creates a new user.
    *
@@ -51,6 +60,21 @@ export class UserService {
     )
   }
 
+  saveIssHistory(data: object) {
+    let headers = new Headers();
+    const token = this.getToken();
+    this.createAuthorizationHeader(headers, token);
+    return this.http.post(`${this.apiBaseUrl}/iss/location`, data,
+    { 
+      headers: headers
+    }
+    ).pipe(
+      map(data => {
+        return data.json();
+      })
+    )
+  }
+
   isLoggedIn() {
     return this.isLoggedin;
   }
@@ -59,15 +83,6 @@ export class UserService {
     this.token = null;
     localStorage.removeItem('currentUser');
   }
-
-  getPeopleInSpace() {
-    return this.http.get(`${this.apiBaseUrl}/iss/people`).pipe(
-      map((data) => {
-        const people = data.json().data;
-        return people;
-      })
-    )
-  }
 }
 
 
@@ -75,22 +90,6 @@ export class UserService {
  * 
  * 
  * 
-  getToken() {
-     this.token = JSON.parse(localStorage.getItem('currentUser')).token
-     return this.token;
-  }
-
-  createAuthorizationHeader(headers: Headers, token: string) {
-    headers.append('Authorization', token)
-  }
-
- let headers = new Headers();
-    const token = this.getToken();
-    this.createAuthorizationHeader(headers, token);
-  
- { 
-        headers: headers
-      }
   
       
 */

@@ -6,11 +6,35 @@
     your location. Given a location on Earth (latitude, longitude) 
     you will get the a list the next 5 times the ISS will be overhead.
 </p>
-<form [formGroup]="issPassForm">
-  <div class="form-group">
-    <input type="number" formControlName='latitiude' class="form-control" value="f.latitiude.value" placeholder="Latitiude">
+<form [formGroup]="issPassForm" (ngSubmit)="onSubmit()">
+  <div class="form-group" [ngClass]="{ 'has-error':  f.latitiude.errors && ( submitted || f.latitiude.touched || f.latitiude.dirty )}">
+    <input type="number" formControlName='latitiude' class="form-control" value="f.latitiude.value" placeholder="Latitiude: valid range between -80 and 80">
+    <div *ngIf="f.latitiude.errors && ( submitted || f.latitiude.touched || f.latitiude.dirty )" class="invalid-feedback">
+        <div *ngIf="f.latitiude.errors.required">latitiude is required</div>
+        <div *ngIf="f.latitiude.errors.required !== true && f.latitiude.invalid">
+            Latitiude is invalid, valid range between -80 and 80
+        </div>
+    </div>
+  </div>
+  <div class="form-group" [ngClass]="{ 'has-error':  f.longitude.errors && ( submitted || f.longitude.touched || f.longitude.dirty )}">
+    <input type="number" formControlName='longitude' class="form-control" value="f.longitude.value" placeholder="Longitude: valid range between -180 and 180">
+    <div *ngIf="f.longitude.errors && ( submitted || f.longitude.touched || f.longitude.dirty )" class="invalid-feedback">
+        <div *ngIf="f.longitude.errors.required">longitude is required</div>
+        <div *ngIf="f.longitude.errors.required !== true && f.longitude.invalid">
+            Longitude is invalid, valid range between -180 and 180
+        </div>
+    </div>
   </div>
   <div class="form-group">
-    <input type="number" formControlName='longitude' class="form-control" value="f.longitude.value" placeholder="Longitude">
-  </div>
+      <button [disabled]="loading" class="btn btn-primary">
+          Locate
+          <i *ngIf="loading" class="fa fa-spinner fa-spin"></i>
+      </button>
+  </div> 
 </form>
+<div *ngIf="showResult" style="text-align: left">
+  Five upcoming ISS passes for {{latC}} ° N, {{lngC}} ° E
+  <ul *ngFor="let passTime of passTimes ">
+    <li>{{passTime}}</li>
+  </ul>
+</div>

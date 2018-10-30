@@ -8,6 +8,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { UserService } from './services/user.service';
 import { MapService } from './services/map.service';
+import { IssService  } from './services/iss.service';
 
 
 import { AppComponent } from './app.component';
@@ -36,7 +37,8 @@ import { FindPassComponent } from './find-pass/find-pass.component';
   ],
   providers: [
     UserService,
-    MapService
+    MapService,
+    IssService
   ],
   bootstrap: [AppComponent]
 })

@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { UserService } from './services/user.service'
+import { IssService } from './services/iss.service'
 
 @Component({
   selector: 'app-root',
@@ -10,7 +11,8 @@ import { UserService } from './services/user.service'
   ]
 })
 export class AppComponent implements OnInit {
-  title = 'iss-location';
+  title = 'ISS Location';
+  startTimer: boolean;
   public isLoggedin: boolean;
   loggedin: boolean;
   token: string;
@@ -18,13 +20,14 @@ export class AppComponent implements OnInit {
   lng: number;
   latC = 0;
   lngC = 0;
-  showIssPass: boolean;
+  showIssPass = false;
   showIssCurrent = true;
   peopleInSpace: any
   noPeopleInSpace: number
 
   constructor(
-    private userService: UserService
+    private userService: UserService,
+    private issService: IssService
   ) {
     this.isLoggedin = userService.isLoggedIn()
   }
@@ -38,10 +41,9 @@ export class AppComponent implements OnInit {
       this.userService.logout();
     }
 
-   this.userService.getPeopleInSpace()
+   this.issService.getPeopleInSpace()
       .subscribe((data) => {
         this.peopleInSpace =  data.people
-        console.log(this.peopleInSpace)
         this.noPeopleInSpace = this.peopleInSpace.length;
       });
   }
@@ -51,9 +53,10 @@ export class AppComponent implements OnInit {
     this.latC =  lngLat.lat;
   }
 
-  markerDraged(lngLat: {lat: number, lng: number}) {
+  searchLocation(lngLat: {lat: number, lng: number}) {
     this.lng =  lngLat.lng;
     this.lat =  lngLat.lat;
+    this.startTimer = false;
   }
 
   userIsLoggedIn(logged: boolean) {
@@ -62,12 +65,12 @@ export class AppComponent implements OnInit {
   }
 
   issPass(isspass: boolean) {
-    console.log('Pass Isss', isspass)
     this.showIssPass = isspass;
     this.showIssCurrent = false;
   }
 
   issCurrent(isscurrent: boolean) {
+    this.startTimer = true;
     this.showIssCurrent = isscurrent;
     this.showIssPass = false;
   }
