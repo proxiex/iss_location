@@ -17,6 +17,7 @@ import { SignupComponent } from './signup/signup.component';
 import { SigninComponent } from './signin/signin.component';
 import { HeaderComponent } from './header/header.component';
 import { FindPassComponent } from './find-pass/find-pass.component';
+import { ViewIssPassComponent } from './view-iss-pass/view-iss-pass.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { FindPassComponent } from './find-pass/find-pass.component';
     SignupComponent,
     SigninComponent,
     HeaderComponent,
-    FindPassComponent
+    FindPassComponent,
+    ViewIssPassComponent
   ],
   imports: [
     BrowserModule,

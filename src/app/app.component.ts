@@ -22,8 +22,10 @@ export class AppComponent implements OnInit {
   lngC = 0;
   showIssPass = false;
   showIssCurrent = true;
-  peopleInSpace: any
-  noPeopleInSpace: number
+  showIssViewPass = false;
+  peopleInSpace: any;
+  noPeopleInSpace: number;
+  flip = false;
 
   constructor(
     private userService: UserService,
@@ -57,6 +59,7 @@ export class AppComponent implements OnInit {
     this.lng =  lngLat.lng;
     this.lat =  lngLat.lat;
     this.startTimer = false;
+    this.flip = !this.flip;
   }
 
   userIsLoggedIn(logged: boolean) {
@@ -67,12 +70,20 @@ export class AppComponent implements OnInit {
   issPass(isspass: boolean) {
     this.showIssPass = isspass;
     this.showIssCurrent = false;
+    this.showIssViewPass = false
   }
 
   issCurrent(isscurrent: boolean) {
-    this.startTimer = true;
     this.showIssCurrent = isscurrent;
+    this.startTimer = true;
     this.showIssPass = false;
+    this.showIssViewPass = false;
+  }
+
+  issHistory(isshistory: boolean) {
+    this.showIssViewPass = isshistory;
+    this.showIssPass = false;
+    this.showIssCurrent = false;
   }
 
 }

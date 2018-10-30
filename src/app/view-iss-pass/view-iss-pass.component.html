@@ -1,0 +1,47 @@
+<div class="panel panel-default" style="height: 580px;overflow: scroll;">
+  <!-- Default panel contents -->
+  <div class="panel-heading">ISS location search history</div>
+  <!-- Table -->
+  <table class="table">
+    <tr>
+      <th>Latitude</th>
+      <th>Longitude</th>
+      <th>View</th>
+    </tr>
+    <tr *ngFor="let history of issHistory; let i = index">
+      <td>{{history.location.latitude}}</td>
+      <td>{{history.location.longitude}}</td>
+      <td><a href="#" data-toggle="modal" data-target=".bs-example-modal-lg" (click)='looadModal(i)'>View details</a></td>
+    </tr>
+  </table>
+</div>
+
+<div *ngIf="showModal" id="myModal" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+  <div class="modal-dialog modal-lg" role="document">
+    <div style="width: 70%;margin: 0 auto;text-align: left;padding: 2%;" class="modal-content">
+        <b style="text-align: centre;">ISS location search history</b>
+        <table class="table">
+          <tr>
+            <td><b>Latitude</b></td>
+            <td> {{issHistory[id].location.latitude}}</td>
+          </tr>
+          <tr>
+            <td><b>Longitude</b></td>
+            <td>{{issHistory[id].location.longitude}}</td>
+          </tr>
+          <tr>
+            <td><b>Date</b></td>
+            <td>{{issHistory[id].datetime * 1000 | date: 'medium' }}</td>
+          </tr>
+          <tr>
+            <td><b>Pass times</b></td>
+            <td>
+                <ul style="list-style: none;" *ngFor="let pass of issHistory[id].passes">
+                  <li>{{pass.risetime * 1000 | date: 'medium'}}</li>
+                </ul>
+            </td>
+          </tr>
+        </table>
+    </div>
+  </div>
+</div>
